@@ -4,7 +4,7 @@ var express = require('express'),
 
 app.set('json spaces', 2);
 
-module.exports = function() {
+module.exports = function(data) {
 
     var groups = {}, clients, client, projects, project, path, key, callback;
 
@@ -21,28 +21,37 @@ module.exports = function() {
         groups[key][property] = value;
     };
 
-    clients = fs.readdirSync('./data/');
-
-    for (var index = 0, length = clients.length; index < length; index++) {
-        client = clients[index];
-        projects = fs.readdirSync('./data/' + client);
-            // percorre a listagem de projeto por cliente
-        for (var indexProject = 0, lengthProject = projects.length; indexProject < lengthProject; indexProject++) {
-            project = projects[indexProject];
-            path = './data/' + client + '/' + project + '/';
-
-            key = client + '_' + project;
-
-            if (fs.existsSync(path + 'routes.js')) {
-                callback(key, 'route', path + 'routes.js');
-            }
-
-            if (fs.existsSync(path + 'db.json')) {
-                callback(key, 'db', path + 'db.json');
-            }
+    var addGroup = function(path, key) {
+        if (fs.existsSync(path + 'routes.js')) {
+            callback(key, 'route', path + 'routes.js');
         }
 
+        if (fs.existsSync(path + 'db.json')) {
+            callback(key, 'db', path + 'db.json');
+        }
+    };
+
+    if (!data) {
+        clients = fs.readdirSync('./data/');
+
+        for (var index = 0, length = clients.length; index < length; index++) {
+            client = clients[index];
+            projects = fs.readdirSync('./data/' + client);
+                // percorre a listagem de projeto por cliente
+            for (var indexProject = 0, lengthProject = projects.length; indexProject < lengthProject; indexProject++) {
+                project = projects[indexProject];
+                path = './data/' + client + '/' + project + '/';
+
+                key = client + '_' + project;
+
+                addGroup(path, key);
+            }
+
+        }
+    } else {
+        addGroup(data, '');
     }
+
 
     return {
         getApp: function() {
