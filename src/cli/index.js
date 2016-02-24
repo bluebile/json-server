@@ -1,5 +1,5 @@
 
-var module = require('./../');
+var module = require('./../main');
 var jsonServer = require('json-server');
 var yargs  = require('yargs');
 
@@ -12,7 +12,8 @@ var argv = yargs
         },
         path: {
             alias: 'f',
-            description: 'define path'
+            description: 'define path',
+
         }
 
     })
