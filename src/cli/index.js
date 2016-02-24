@@ -12,8 +12,7 @@ var argv = yargs
         },
         path: {
             alias: 'f',
-            description: 'define path',
-
+            description: 'define path'
         }
 
     })
@@ -34,7 +33,7 @@ app.use(jsonServer.defaults());
 for (var path in groups) {
 
     if (groups[path].route) {
-        routes.push(require('./' + groups[path].route));
+        routes.push(require(groups[path].route));
     }
 
     if (groups[path].db) {
