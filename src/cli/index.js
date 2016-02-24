@@ -1,5 +1,5 @@
 
-var module = require('./.');
+var module = require('./../');
 var jsonServer = require('json-server');
 var yargs  = require('yargs');
 
