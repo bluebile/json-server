@@ -2,7 +2,10 @@
   "name": "json-server",
   "version": "1.0.0",
   "description": "Servidor mockup para os clientes da MBA",
-  "main": "index.js",
+  "main": "src/main/index.js",
+  "bin": {
+    "json-server": "./bin/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
