@@ -23,12 +23,12 @@ module.exports = function(data) {
     };
 
     var addGroup = function(path, key) {
-        if (fs.existsSync(path + 'routes.js')) {
-            callback(key, 'route', path + 'routes.js');
+        if (fs.existsSync(path + '/routes.js')) {
+            callback(key, 'route', path + '/routes.js');
         }
 
-        if (fs.existsSync(path + 'db.json')) {
-            callback(key, 'db', path + 'db.json');
+        if (fs.existsSync(path + '/db.json')) {
+            callback(key, 'db', path + '/db.json');
         }
     };
 
@@ -52,7 +52,7 @@ module.exports = function(data) {
 
         }
     } else {
-        addGroup(data, '');
+        addGroup(path.resolve(data), '');
     }
 
 
