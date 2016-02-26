@@ -22,13 +22,20 @@ Para iniciar o servidor utilizar o comando
 $ node bin/index.js
 ```
 
+Por padrão a porta a ser utilizada é a 3000, mas no caso de modificação de porta utilizar o parâmetro `-p`
+
+```console
+$ node bin/index.js -p 99999
+```
+
+
 ## INCLUINDO UM NOVO PROJETO NO JSON Server
 
 Para cada projeto que será adicionando no JSON Server:
 
 #### Estrutura de pastas
 
-Na pasta `data` criar a pasta do cliente se não existir.
+Na pasta `data criar a pasta do cliente se não existir.
 Exemplo:
 + data/mec
 + data/capes
