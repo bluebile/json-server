@@ -28,7 +28,7 @@ Para cada projeto que será adicionando no JSON Server:
 
 #### Estrutura de pastas
 
-Na pasta data criar a pasta do cliente se não existir.
+Na pasta `data` criar a pasta do cliente se não existir.
 Exemplo:
 + data/mec
 + data/capes
@@ -93,8 +93,8 @@ Atualmente está sendo utilizado um servidor na Digital Ocean no IP:
 
 #### Digital Ocean
 
-HOST: http://162.243.124.216:3000/
-PORT: 3000
++ HOST: http://162.243.124.216:3000/
++ PORT: 3000
 
 
 
