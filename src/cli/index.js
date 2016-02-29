@@ -46,5 +46,5 @@ for (var path in groups) {
 }
 
 app.listen(argv.port, function() {
-    console.log('JSON Server listening on http://localhost:3000')
+    console.log('JSON Server listening on http://localhost:' + argv.port);
 });
