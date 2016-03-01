@@ -70,26 +70,28 @@ O ideal é que a rota seja a mesma utilizada nos serviços do cliente, para evit
 ```js
 
 var path     = require('path'),
-    dataJson = require ('./data.json');
     express = require('express'),
-    route  = express.Router();
+    router  = express.Router();
 
-router.get('/inscricao', function(req, res, next) {
-    res.send('Test Inscricao');
-    next();
-});
 
-router.get('/cronograma', function(req, res, next) {
-    res.send('Test Cronograma');
-    next();
-});
+module.exports = function(db) {
+    router.get('/inscricao', function(req, res, next) {
+        res.json(db('posts'));
+        next();
+    });
 
-router.get('/candidato', function(req, res, next) {
-    res.send('Test Candidato');
-    next();
-});
+    router.get('/cronograma', function(req, res, next) {
+        res.send('Test Cronograma');
+        next();
+    });
 
-module.exports = route;
+    router.get('/candidato', function(req, res, next) {
+        res.send('Test Candidato');
+        next();
+    });
+
+    return router;
+};
 
 ```
 

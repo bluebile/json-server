@@ -19,25 +19,25 @@ var argv = yargs
     .help('help').alias('help', 'h')
     .argv;
 
-var fs = require('fs');
-
-var main = module(argv.path);
-var groups = main.getConfig();
-
-var app = main.getApp();
-
-var routes = [];
+var fs = require('fs'),
+    main = module(argv.path),
+    groups = main.getConfig(),
+    app = main.getApp(),
+    routes = [];
 
 app.use(jsonServer.defaults());
 
 for (var path in groups) {
-
-    if (groups[path].route) {
-        routes.push(require(groups[path].route));
-    }
+    var routeDb, route;
 
     if (groups[path].db) {
-        routes.push(jsonServer.router(groups[path].db));
+        routeDb = jsonServer.router(groups[path].db);
+        routes.push(routeDb);
+    }
+
+    if (groups[path].route) {
+        route = require(groups[path].route);
+        routes.unshift(route(routeDb.db));
     }
 
     for (var i = 0; i < routes.length; i++) {
