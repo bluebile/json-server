@@ -28,16 +28,17 @@ var fs = require('fs'),
 app.use(jsonServer.defaults());
 
 for (var path in groups) {
-    var routeDb, route;
+    var routeDb, route, db;
 
     if (groups[path].db) {
         routeDb = jsonServer.router(groups[path].db);
+        db = routeDb.db;
         routes.push(routeDb);
     }
 
     if (groups[path].route) {
         route = require(groups[path].route);
-        routes.unshift(route(routeDb.db));
+        routes.unshift(route());
     }
 
     for (var i = 0; i < routes.length; i++) {
