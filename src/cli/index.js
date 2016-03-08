@@ -22,13 +22,12 @@ var argv = yargs
 var fs = require('fs'),
     main = module(argv.path),
     groups = main.getConfig(),
-    app = main.getApp(),
-    routes = [];
+    app = main.getApp();
 
 app.use(jsonServer.defaults());
 
 for (var path in groups) {
-    var routeDb, route, db;
+    var routeDb, route, db, routes = [];
 
     if (groups[path].db) {
         routeDb = jsonServer.router(groups[path].db);
