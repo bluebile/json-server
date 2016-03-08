@@ -38,7 +38,7 @@ for (var path in groups) {
 
     if (groups[path].route) {
         route = require(groups[path].route);
-        routes.unshift(route());
+        routes.unshift(route(db));
     }
 
     for (var i = 0; i < routes.length; i++) {
