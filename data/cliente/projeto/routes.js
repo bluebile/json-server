@@ -7,7 +7,10 @@ module.exports = function(db) {
         res.json(db('posts'));
         next();
     });
-    return router;
+
+    return {
+        router: router
+    };
 };
 
 

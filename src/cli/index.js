@@ -27,7 +27,7 @@ var fs = require('fs'),
 app.use(jsonServer.defaults());
 
 for (var path in groups) {
-    var routeDb, route, db, routes = [];
+    var routeDb, route, render, db, routes = [];
 
     if (groups[path].db) {
         routeDb = jsonServer.router(groups[path].db);
@@ -36,8 +36,28 @@ for (var path in groups) {
     }
 
     if (groups[path].route) {
-        route = require(groups[path].route);
-        routes.unshift(route(db));
+        route = require(groups[path].route)(db);
+
+        if (route.render) {
+            render = route.render;
+            delete route.render;
+        }
+
+        if (route.router) {
+            route = route.router;
+        }
+
+        if (render) {
+            if (routeDb) {
+                routeDb.render = render;
+            } else {
+                // @todo testar quando não houver db json
+                // deve ser implementado um middleware que execute o render assim como jsonserver
+                route.render = render;
+            }
+        }
+
+        routes.unshift(route);
     }
 
     for (var i = 0; i < routes.length; i++) {
