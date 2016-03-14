@@ -55,10 +55,6 @@ for (var path in configs) {
         if (render) {
             if (routeDb) {
                 routeDb.render = render;
-            } else {
-                // @todo testar quando não houver db json
-                // deve ser implementado um middleware que execute o render assim como jsonserver
-                route.render = render;
             }
         }
 
