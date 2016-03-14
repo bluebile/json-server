@@ -13,6 +13,11 @@ var argv = yargs
         path: {
             alias: 'f',
             description: 'Define path'
+        },
+        subfolder: {
+            alias: 's',
+            description: 'Executa rotina de subfolders.',
+            default: true
         }
 
     })
@@ -20,23 +25,23 @@ var argv = yargs
     .argv;
 
 var fs = require('fs'),
-    main = module(argv.path),
-    groups = main.getConfig(),
+    main = module(argv.path, argv.subfolder),
+    configs = main.getConfig(),
     app = main.getApp();
 
 app.use(jsonServer.defaults());
 
-for (var path in groups) {
+for (var path in configs) {
     var routeDb, route, render, db, routes = [];
 
-    if (groups[path].db) {
-        routeDb = jsonServer.router(groups[path].db);
+    if (configs[path].db) {
+        routeDb = jsonServer.router(configs[path].db);
         db = routeDb.db;
         routes.push(routeDb);
     }
 
-    if (groups[path].route) {
-        route = require(groups[path].route)(db);
+    if (configs[path].route) {
+        route = require(configs[path].route)(db);
 
         if (route.render) {
             render = route.render;
