@@ -13,6 +13,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "json-server": "^0.8.4",
-    "yargs": "^3.10.0"
+    "yargs": "^3.10.0",
+    "node-forge": "0.6.39"
   }
 }
