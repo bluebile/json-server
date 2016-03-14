@@ -7,28 +7,28 @@ app.set('json spaces', 2);
 
 module.exports = function(data) {
 
-    var groups = {}, clients, client, projects, project, pathClient, key, callback, pathData;
+    var configs = {}, clients, client, projects, project, pathClient, key, addConfigFn, pathData;
 
-    callback = function(key, property, value) {
+    addConfigFn = function(key, property, value) {
 
         if (!(key in groups)) {
-            groups[key] = {};
+            configs[key] = {};
         }
 
         if (!(property in groups[key])) {
-            groups[key][property] = {};
+            configs[key][property] = {};
         }
 
-        groups[key][property] = value;
+        configs[key][property] = value;
     };
 
-    var addGroup = function(path, key) {
+    var addConfig = function(path, key) {
         if (fs.existsSync(path + '/routes.js')) {
-            callback(key, 'route', path + '/routes.js');
+            addConfigFn(key, 'route', path + '/routes.js');
         }
 
         if (fs.existsSync(path + '/db.json')) {
-            callback(key, 'db', path + '/db.json');
+            addConfigFn(key, 'db', path + '/db.json');
         }
     };
 
@@ -47,12 +47,12 @@ module.exports = function(data) {
 
                 key = client + '_' + project;
 
-                addGroup(pathClient, key);
+                addConfig(pathClient, key);
             }
 
         }
     } else {
-        addGroup(path.resolve(data), '');
+        addConfig(path.resolve(data), '');
     }
 
 
@@ -61,7 +61,7 @@ module.exports = function(data) {
             return app;
         },
         getConfig: function() {
-            return groups;
+            return configs;
         }
     }
 };

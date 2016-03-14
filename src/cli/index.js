@@ -12,7 +12,7 @@ var argv = yargs
         },
         path: {
             alias: 'f',
-            description: 'define path'
+            description: 'Define path'
         }
 
     })
