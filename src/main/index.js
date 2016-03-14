@@ -11,11 +11,11 @@ module.exports = function(data) {
 
     addConfigFn = function(key, property, value) {
 
-        if (!(key in groups)) {
+        if (!(key in configs)) {
             configs[key] = {};
         }
 
-        if (!(property in groups[key])) {
+        if (!(property in configs[key])) {
             configs[key][property] = {};
         }
 
