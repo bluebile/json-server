@@ -128,8 +128,8 @@ module.exports = function(db) {
 
     return {
         router: router,
-        render: function() {
-            res.send('json server');
+        render: function(res, req) {
+            res.send(res.locals.data);
         }
     };
 };
