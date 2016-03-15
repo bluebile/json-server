@@ -17,7 +17,7 @@ var argv = yargs
         subfolder: {
             alias: 's',
             description: 'Executa rotina de subfolders.',
-            default: true
+            default: false
         }
 
     })

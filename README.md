@@ -28,6 +28,18 @@ Por padrão a porta a ser utilizada é a 3000, mas no caso de modificação de p
 $ node bin/index.js -p 99999
 ```
 
+Pode ser especificada a pasta onde estão localizados os arquivos routes.js (rotas customizadas com express.Router()) e
+db.json (arquivo utilizado pelo JSON SERVER para representação do RESTFull)
+
+```console
+$ node bin/index.js -f data/cliente/projeto/
+```
+
+Caso necessite subir a estrutura de mais projetos (Ex: Digital Ocean) com isto gera-se o contexto http://<ip>/cliente_proteto/
+```console
+$ node bin/index.js -f data/ -s
+```
+
 
 ## INCLUINDO UM NOVO PROJETO NO JSON Server
 
@@ -35,7 +47,7 @@ Para cada projeto que será adicionando no JSON Server:
 
 #### Estrutura de pastas
 
-Na pasta `data criar a pasta do cliente se não existir.
+Na pasta `especificada  a pasta do cliente se não existir.
 Exemplo:
 + data/mec
 + data/capes
@@ -49,7 +61,8 @@ Exemplo:
 + data/mec/sisutec
 + data/mec/appaluno
 
-Para cada projeto adicionar o arquivo 
+#### Em caso de simular RESTFull
+Para o projeto em questão adicionar o arquivo
 
 Criar o arquivo `db.json` com a estrutura dos serviços do projeto:
 ```json
@@ -64,9 +77,12 @@ Criar o arquivo `db.json` com a estrutura dos serviços do projeto:
 }
 ```
 
+#### Em caso de rotas customizadas
 Criar o arquivo `routes.js` com a estrutura de rotas do projeto.
 O ideal é que a rota seja a mesma utilizada nos serviços do cliente, para evitar retrabalho no aplicativo.
 
+##### Exemplo 1
+- Este arquivo recebe o argumento `db` que é representação do db.json(caso seja utilizado), retorna o express.Router().
 ```js
 
 var path     = require('path'),
@@ -91,6 +107,31 @@ module.exports = function(db) {
     });
 
     return router;
+};
+
+```
+##### Exemplo 2
+- Caso haja a necessidade de customizar o retorno do JSON-SERVER RESTFull deve ser retornado o render.
+
+```js
+
+var path     = require('path'),
+    express = require('express'),
+    router  = express.Router();
+
+
+module.exports = function(db) {
+    router.get('/inscricao', function(req, res, next) {
+        res.json(db('posts'));
+        next();
+    });
+
+    return {
+        router: router,
+        render: function() {
+            res.send('json server');
+        }
+    };
 };
 
 ```
