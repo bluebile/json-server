@@ -1,6 +1,6 @@
 {
   "name": "json-server",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Servidor mockup para os clientes da MBA",
   "main": "src/main/index.js",
   "bin": {
