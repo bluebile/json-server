@@ -1,6 +1,6 @@
 {
   "name": "json-server",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Servidor mockup para os clientes da MBA",
   "main": "src/main/index.js",
   "bin": {
@@ -16,6 +16,7 @@
     "yargs": "^3.10.0",
     "node-forge": "0.6.39",
     "request": "^2.67.0",
-    "body-parser": "^1.8.1"
+    "body-parser": "^1.8.1",
+    "lodash": "^4.8.0"
   }
 }
